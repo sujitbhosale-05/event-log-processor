@@ -1,0 +1,23 @@
+app:
+  event-log-processor:
+    alert-threshold-ms: 4
+
+spring:
+  application:
+    name: event-log-processor
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:file:db/logAlertsDB;DB_CLOSE_DELAY=1000
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 20000
+        order_inserts: true
+
+server:
+  port: 7878
