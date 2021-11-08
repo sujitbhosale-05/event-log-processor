@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(args={"--arg1=val1"})
+@SpringBootTest(args={"logFile_6_Events.txt"})
 class EventLogProcessorApplicationTests {
 
 	@Mock
@@ -16,7 +16,7 @@ class EventLogProcessorApplicationTests {
 	@Test
 	public void testWithArgs() {
 		doNothing().when(logAnalyserComponent).analyseLogs(anyString());
-		EventLogProcessorApplication.main(new String[] {"TEST_FILE.txt"});
+		EventLogProcessorApplication.main(new String[] {"logFile_6_Events.txt"});
 	}
 
 	@Test

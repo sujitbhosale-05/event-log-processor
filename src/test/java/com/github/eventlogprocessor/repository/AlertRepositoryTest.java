@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(args={"--arg1=val1"})
+@SpringBootTest(args={"logFile_6_Events.txt"})
 public class AlertRepositoryTest {
 
     @Autowired
