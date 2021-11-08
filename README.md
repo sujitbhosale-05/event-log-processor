@@ -20,13 +20,15 @@ git clone https://github.com/sujit.bhosale05/event-log-processor.git
 
 ==========================================================================================================================================================
 
-To get Perfomance improvement following things done.
-1. Used Parallel stream to iterate over each event - so parallel stram internally allowed multiple thread to perform task using Fork Join Pool.
-2. Created produce method which put all events in Map check with respective Started/Finished event and create Alert object and put in another Map. In Produce method, mutiple threads of Parallel stream perform operation.
-3. Spring Batch is used to persit records in a batch of 20K in consume method. Batch size provided in application yml. Persisting records in a batch of 20k improved performance.
+Below are a few highlights.
+Application is capable of handling huge file of gigabytes. Used Multiple Threads Parallel stream operation and Spring Batch of 20K in one go persist to improve performance. Tested with a gigabyte file, worked as expected without concurrency issues.
 
+To get Performance improvement following things done.
+1. Used Parallel stream to iterate over each event - so parallel stream internally allowed multiple threads to perform tasks using Fork Join Pool.
+2. Created produce method which put all events in Map check with respective Started/Finished event and create Alert object and put in another Map. In the Produce method, multiple threads of Parallel stream perform operation.
+3. Spring Batch is used to persist records in a batch of 20K in the consume method. Batch size provided in application yml. Persisting records in a batch of 20k improved performance.
 
-Following things done to avoid concurrency issue.
-1. Consume saveAll batch method syncronised block, so only 1 thread at a time save a batch 0f 20k. Also double checking used inside Synchronised block to avoid 2 thread getting enter in Synchrinised block.
-2. EventMap and AlertsMap both created as ConcurrentHashMap which dont block for read and block only for write operation. Which is high performance and thread safe.
-3. To keep track of totalPersitedRecords created AtomicInteger variable to make thread safe and atomic operation on persisted count. 
+Following things done to avoid concurrency issues.
+1. Consume saveAll batch method is in synchronized block, so only 1 thread at a time save a batch 0f 20k. Also double checking is used inside the Synchronised block to avoid multiple threads getting entered in the Synchronized block.
+2. EventMap and AlertsMap are both created as ConcurrentHashMap which don't block for read and block only for write operation. Which is high performance and thread safe.
+3. To keep track of total Persisted Records created AtomicInteger variable to make thread safe and atomic operation on persisted count. 
